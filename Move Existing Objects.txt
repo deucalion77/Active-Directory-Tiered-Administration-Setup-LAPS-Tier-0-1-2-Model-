@@ -1,0 +1,4 @@
+Move-ADObject "CN=MYSQL-SRV01,CN=Computers,$dom" -TargetPath $ouT1C
+Move-ADObject "CN=WS10-01,CN=Computers,$dom"    -TargetPath $ouT2C
+Move-ADObject "CN=alex.admin,CN=Users,$dom"     -TargetPath $ouT0U
+Move-ADObject "CN=alex.user,CN=Users,$dom"      -TargetPath $ouT2U

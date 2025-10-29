@@ -1,0 +1,2 @@
+redirusr $ouT2U   # New users → Tier2_Users
+redircmp $ouT2C   # New computers → Tier2_Computers

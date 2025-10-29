@@ -1,0 +1,9 @@
+$gT0 = New-GPO -Name "Tier0-Allow-DA-Logon"
+$gT1 = New-GPO -Name "Tier1-Deny-DA-Logon"
+$gT2 = New-GPO -Name "Tier2-Deny-DA-&-SrvAdmin-Logon"
+$gLP = New-GPO -Name "Tier2-LAPS-Baseline"
+
+New-GPLink -Name $gT0.DisplayName -Target $ouT0C
+New-GPLink -Name $gT1.DisplayName -Target $ouT1C
+New-GPLink -Name $gT2.DisplayName -Target $ouT2C
+New-GPLink -Name $gLP.DisplayName -Target $ouT2C

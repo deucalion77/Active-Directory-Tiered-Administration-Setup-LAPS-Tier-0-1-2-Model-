@@ -1,0 +1,30 @@
+
+---
+
+## ⚙️ PowerShell Commands
+
+### 1. Create OU Structure
+
+```powershell
+$dom  = (Get-ADDomain).DistinguishedName
+$root = "OU=Organization,$dom"
+
+function Ensure-OU {
+    param($Name, $Parent)
+    $dn = "OU=$Name,$Parent"
+    if (-not (Get-ADOrganizationalUnit -LDAPFilter "(distinguishedName=$dn)" -EA SilentlyContinue)) {
+        New-ADOrganizationalUnit -Name $Name -Path $Parent -ProtectedFromAccidentalDeletion $true | Out-Null
+    }
+    $dn
+}
+
+$ouUsers   = Ensure-OU "Users"   $root
+$ouDevices = Ensure-OU "Devices" $root
+$ouGroups  = Ensure-OU "Groups"  $root
+
+$ouT0U = Ensure-OU "Tier0_Admins"    $ouUsers
+$ouT1U = Ensure-OU "Tier1_Admins"    $ouUsers
+$ouT2U = Ensure-OU "Tier2_Users"     $ouUsers
+$ouT0C = Ensure-OU "Tier0_Computers" $ouDevices
+$ouT1C = Ensure-OU "Tier1_Computers" $ouDevices
+$ouT2C = Ensure-OU "Tier2_Computers" $ouDevices
